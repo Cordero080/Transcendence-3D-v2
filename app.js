@@ -1,15 +1,9 @@
-<<<<<<< HEAD
 // === Spectral Sine Wave Background Animation (imported) ===
 import { drawSpectralSineWave } from "./sinewave/spectralSineWave.js";
 window.addEventListener("DOMContentLoaded", () => {
   drawSpectralSineWave();
   window.addEventListener("resize", drawSpectralSineWave);
 });
-=======
-// safety so missing function won't crash white-stage evolution
-window.startWhiteEmissionTimer =
-  window.startWhiteEmissionTimer || function () {};
->>>>>>> 5bf7d716530a8b77426080cc8c0a89d56550c86f
 // --- Debug resource loading ---
 // --- Debug: catch any silent async errors ---
 window.addEventListener("unhandledrejection", (e) => {
