@@ -1,3 +1,9 @@
+// === Spectral Sine Wave Background Animation (imported) ===
+import { drawSpectralSineWave } from "./sinewave/spectralSineWave.js";
+window.addEventListener("DOMContentLoaded", () => {
+  drawSpectralSineWave();
+  window.addEventListener("resize", drawSpectralSineWave);
+});
 // --- Debug resource loading ---
 // --- Debug: catch any silent async errors ---
 window.addEventListener("unhandledrejection", (e) => {

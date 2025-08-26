@@ -7,6 +7,7 @@ export function initUI() {
   const reasonElement = document.getElementById("gameOverReason");
   const petChat = document.querySelector(".infoBox_petChat");
   const hungerTimer = document.getElementById("hungerTimer");
+  const startBtn = document.querySelector(".StartButton");
   const funTimer = document.getElementById("funTimer");
   const sleepTimer = document.getElementById("sleepTimer");
   const powerTimer = document.getElementById("powerTimer");
@@ -38,7 +39,7 @@ const trainButton = buttons[3];
     // gameOverOverlay,
      reasonElement, petChat,
     hungerTimer, funTimer, sleepTimer, powerTimer,
-    overlay, overlayStartBtn, resetBtn, buttons,
+    overlay, overlayStartBtn, startBtn, resetBtn, buttons,
     btn, menu, container,
     feedIndicator, danceIndicator, sleepIndicator, powerIndicator,
     glitchStutterOverlay, glitchStutterOverlay2, glitchDiv,
