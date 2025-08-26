@@ -1596,9 +1596,9 @@ canvas {
     evolutionShimmer 1s ease-in-out infinite;
   background: radial-gradient(ellipse 60% 70% at 50% 45%, 
     rgba(5, 45, 155, 0.9) 0%,
-    rgba(255, 0, 255, 0.8) 30%,
+    rgba(255, 0, 255, 0.702) 30%,
     rgba(255, 255, 0, 0.7) 60%,
-    rgba(90, 5, 208, 0.854) 80%,
+    rgba(90, 5, 208, 0.711) 80%,
     transparent 100%
   );
   background-image: 
@@ -1824,6 +1824,7 @@ canvas {
   animation: stutterFlashInverted 0.12s ease-out;
   mix-blend-mode: exclusion;
 }
+
 
 
 /* Inverted animations */
@@ -2856,3 +2857,58 @@ html::before {
 }
 
 
+/* 1) ============================EDIT    EDIT EDIT =================================Turn off blending so the mask looks like pre-egg */
+.glitch-stutter-overlay { 
+  mix-blend-mode: normal; /* or remove the property entirely */
+}
+/* 2) Use the exact pre-egg mandala gradients */
+.glitch-stutter-overlay.active.transcendence {
+  /* keep your existing animations; just replace the gradients below */
+  background: /* Central divine light */
+    radial-gradient(circle 15% at 50% 100%, 
+      rgba(255, 255, 255, 0.9) 0%,
+      rgba(255, 215, 0, 0.8) 10%,
+      transparent 30%
+    ),
+    /* Inner mandala ring - warm mystical colors */
+    radial-gradient(circle 35% at 50% 100%, 
+      transparent 40%,
+      rgba(255, 105, 180, 0.7) 50%,
+      rgba(138, 43, 226, 0.6) 60%,
+      rgba(231, 3, 220, 0.5) 70%,
+      transparent 80%
+    ),
+    /* Middle mandala ring - cool mystical colors */
+    radial-gradient(circle 60% at 90% 100%, 
+      transparent 65%,
+      rgba(135, 206, 250, 0.5) 70%,
+      rgba(0, 191, 255, 0.45) 80%,
+      rgba(75, 0, 130, 0.4) 90%,
+      transparent 95%
+    ),
+    /* Outer mandala ring - ethereal glow */
+    radial-gradient(circle 85% at 50% 50%, 
+      transparent 75%,
+      rgba(248, 66, 66, 0.2) 80%,
+      rgba(255, 215, 0, 0.15) 85%,
+      rgba(130, 2, 66, 0.573) 90%,
+      transparent 100%
+    );
+
+  /* Mystical particle patterns overlaid */
+  background-image: 
+    /* Central star pattern */
+    radial-gradient(circle 3px at 50% 50%, rgba(255, 255, 255, 1) 0%, transparent 60%),
+    /* Inner ring particles */
+    radial-gradient(circle 2px at 50% 30%, rgba(255, 215, 0, 0.9) 0%, transparent 50%),
+    radial-gradient(circle 2px at 70% 50%, rgba(255, 105, 180, 0.9) 0%, transparent 50%),
+    radial-gradient(circle 2px at 50% 70%, rgba(138, 43, 226, 0.9) 0%, transparent 50%),
+    radial-gradient(circle 2px at 30% 50%, rgba(75, 0, 130, 0.9) 0%, transparent 50%),
+    radial-gradient(circle 2px at 65% 35%, rgba(0, 191, 255, 0.9) 0%, transparent 50%),
+    radial-gradient(circle 2px at 35% 65%, rgba(147, 0, 211, 0.9) 0%, transparent 50%),
+    /* Outer ring particles */
+    radial-gradient(circle 1.5px at 85% 50%, rgba(255, 255, 255, 0.8) 0%, transparent 50%),
+    radial-gradient(circle 1.5px at 50% 15%, rgba(255, 215, 0, 0.8) 0%, transparent 50%),
+    radial-gradient(circle 1.5px at 15% 50%, rgba(255, 105, 180, 0.8) 0%, transparent 50%),
+    radial-gradient(circle 1.5px at 50% 85%, rgba(138, 43, 226, 0.8) 0%, transparent 50%);
+}
