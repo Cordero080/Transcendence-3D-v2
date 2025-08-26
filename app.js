@@ -949,8 +949,8 @@ function startGame() {
 
     // TEMPORARY BYPASS to WHITE EVOLUTION
 
-    currentStage = "white";
-    myPet.stage = "white"; // uncomment to start at white
+    currentStage = "blue";
+    myPet.stage = "blue"; // uncomment to start at white
     evolutionInProgress = false; // Initialize evolution flag
 
     loadAndDisplayFBX(
@@ -2359,7 +2359,7 @@ async function playActionThenShareIdle(actionType, stage) {
 // *================EVENT LISTENERS ===================* \\
 if (overlayStartBtn) {
   overlayStartBtn.addEventListener("click", async () => {
-    overlay.style.display = "none";                // close intro
+    overlay.style.display = "none"; // close intro
 
     // show egg IDLE (no hatch here)
     const glitchEgg = document.getElementById("colorfulGlitchDiv");
@@ -2371,7 +2371,12 @@ if (overlayStartBtn) {
     // optional music
     const theme = document.getElementById("bg-music");
     if (theme) {
-      try { theme.muted = false; theme.currentTime = 0; theme.volume = 0.8; await theme.play(); } catch {}
+      try {
+        theme.muted = false;
+        theme.currentTime = 0;
+        theme.volume = 0.8;
+        await theme.play();
+      } catch {}
     }
   });
 }
@@ -2383,16 +2388,19 @@ if (startBtn) {
       // restart hatch animation
       egg.style.display = "flex";
       egg.classList.remove("hatching");
-      void egg.offsetWidth;        // reflow
+      void egg.offsetWidth; // reflow
       egg.classList.add("hatching");
 
       // hide after hatch
-      const hide = () => { egg.style.display = "none"; egg.classList.remove("hatching"); };
+      const hide = () => {
+        egg.style.display = "none";
+        egg.classList.remove("hatching");
+      };
       egg.addEventListener("animationend", hide, { once: true });
       setTimeout(hide, 1600);
     }
 
-    await startGame();             // start game AFTER triggering hatch
+    await startGame(); // start game AFTER triggering hatch
   });
 }
 // Event delegation for overlay buttons
