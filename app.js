@@ -2581,26 +2581,6 @@ window.addEventListener("DOMContentLoaded", () => {
       resetGame();
     });
   }
-
-  // 4) DEBUG TRANSCEND: instantly trigger transcendence for testing
-  const debugTranscendBtn = document.getElementById("debugTranscendBtn");
-  if (debugTranscendBtn) {
-    debugTranscendBtn.addEventListener("click", () => {
-      console.log(
-        "🧪 DEBUG TRANSCEND clicked - triggering transcendence effects"
-      );
-      // Trigger the mystical transcendence effect first
-      triggerMysticalTranscendence(9000);
-      // Trigger intergalactic beam 1 second later (matching the actual game sequence)
-      setTimeout(() => {
-        triggerIntergalacticBeam();
-      }, 1000);
-      // Show the transcendence overlay after effects complete
-      setTimeout(() => {
-        showWhiteTranscendenceOverlay();
-      }, 9000);
-    });
-  }
 });
 // === One canonical PET-ONLY effect + aliases for every spelling/casing ===
 (() => {
