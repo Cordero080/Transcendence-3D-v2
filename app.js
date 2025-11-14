@@ -1107,6 +1107,7 @@ function resetGame() {
   myPet = new Pet("Coco");
   currentStage = "blue";
   myPet.stage = "blue";
+  myPet.evolutionLevel = 0; // ← Ensure evolution level is reset to 0
   careCycles = 0;
   resetButtonTracker();
   gameOverTriggered = false;
@@ -1114,6 +1115,7 @@ function resetGame() {
   evolutionInProgress = false;
   danceSequenceIndex = 0;
   whiteStageAnimationCount = 0;
+  gameStarted = false; // ← Game hasn't started yet, need to click START
   updateButtonStatesForEvolution();
 
   // Optional: clear custom styles on the Game Over overlay
@@ -1130,31 +1132,29 @@ function resetGame() {
     gameOverOverlay.style.boxShadow = "";
   }
 
-  // ── F) Load Blue idle with your config (no pose/scale changes) ──────────────
-  try {
-    console.log("[reset] Loading Blue idle…");
-    loadAndDisplayFBX(
-      animationConfig[currentStage].idle.file,
-      animationConfig[currentStage].idle.pose
-    );
-  } catch (err) {
-    console.error("❌ Failed to start Blue idle load:", err);
+  // ── F) Show the glitch egg again (back to idle state) ───────────────────────
+  const egg = document.getElementById("colorfulGlitchDiv");
+  if (egg) {
+    egg.style.display = "flex";
+    egg.classList.remove("hatching");
+    console.log("[reset] Glitch egg restored to idle state");
   }
 
-  // ── G) Restart stat timers & refresh UI ─────────────────────────────────────
-  statTimers.hunger = myPet.createStatTimer(
-    "hunger",
-    gameSettings.baseDecayRate
-  );
-  statTimers.fun = myPet.createStatTimer("fun", gameSettings.baseDecayRate);
-  statTimers.sleep = myPet.createStatTimer("sleep", gameSettings.baseDecayRate);
-  statTimers.power = myPet.createStatTimer("power", gameSettings.baseDecayRate);
+  // ── G) Clear the 3D model (pet goes back into egg) ──────────────────────────
+  try {
+    clearActiveModel && clearActiveModel();
+    console.log("[reset] 3D model cleared, pet back in egg");
+  } catch (err) {
+    console.error("❌ Failed to clear 3D model:", err);
+  }
 
-  myPet.render();
-  gameStarted = true;
-  actionInProgress = false;
+  // ── H) Reset UI timers display ───────────────────────────────────────────────
+  if (hungerTimer) hungerTimer.textContent = "Hunger: 0";
+  if (funTimer) funTimer.textContent = "Fun: 10";
+  if (sleepTimer) sleepTimer.textContent = "Zzz: 0";
+  if (powerTimer) powerTimer.textContent = "Power: 10";
 
-  console.log("resetGame() complete.");
+  console.log("resetGame() complete - Click START to hatch the egg again.");
 }
 
 function stopWhiteEmissionTimer() {
@@ -2506,6 +2506,15 @@ window.addEventListener("DOMContentLoaded", () => {
       await startGame();
     });
   }
+
+  // 3) RESET: reset the entire game state and timers
+  const resetBtn = document.querySelector(".ResetButton");
+  if (resetBtn) {
+    resetBtn.addEventListener("click", () => {
+      console.log("🔄 RESET button clicked");
+      resetGame();
+    });
+  }
 });
 // === One canonical PET-ONLY effect + aliases for every spelling/casing ===
 (() => {
@@ -2530,18 +2539,18 @@ window.addEventListener("DOMContentLoaded", () => {
 
     const veil = document.createElement("div");
     veil.style.cssText = `
-      position:absolute; inset:0; pointer-events:none;
-      z-index:99999; opacity:1; transition:opacity 250ms ease;
-      background: linear-gradient(45deg,
-        oklch(71.384% 0.20314 353.227),
-        oklch(61.9%   0.19284 258.775),
-        oklch(68.299% 0.18562 299.899),
-        oklch(85.825% 0.23495 148.424),
-        oklch(79.49%  0.14271 62.993),
-        oklch(73.033% 0.19383 352.633)
-      );
-      background-size:300% 300%; mix-blend-mode:normal;
-    `;
+:absolute; inset:0; pointer-events:none;
+z-index:99999; opacity:1; transition:opacity 250ms ease;
+background: linear-gradient(45deg,
+oklch(71.384% 0.20314 353.227),
+oklch(61.9%   0.19284 258.775),
+oklch(68.299% 0.18562 299.899),
+oklch(85.825% 0.23495 148.424),
+oklch(79.49%  0.14271 62.993),
+oklch(73.033% 0.19383 352.633)
+);
+background-size:300% 300%; mix-blend-mode:normal;
+`;
     pc.appendChild(veil);
     setTimeout(() => {
       veil.style.opacity = "0";
