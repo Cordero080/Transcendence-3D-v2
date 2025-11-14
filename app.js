@@ -268,7 +268,7 @@ const stageMap = {
   4: {
     stage: "white",
     message:
-      "⚪ I am nearly formless and can feel my essence slowly traversing the physical realm",
+      "⚪ My internal mode is now full spectrum and my qi is at full capacity",
   },
 };
 const stageEmojis = {
@@ -276,7 +276,7 @@ const stageEmojis = {
   yellow: "🟡",
   green: "🟢",
   red: "🔴",
-  white: "⚪",
+  white: "",
 };
 const timerMap = {
   feed: "hunger",
