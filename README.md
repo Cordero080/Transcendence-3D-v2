@@ -1,8 +1,54 @@
 # Tamagotchi Transcendence — v2
 
+![Three.js](https://img.shields.io/badge/Three.js-000000?style=for-the-badge&logo=three.js&logoColor=white)
+![Blender](https://img.shields.io/badge/Blender-F5792A?style=for-the-badge&logo=blender&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+
 A Tamagotchi-inspired evolution sim where your digital pet moves through the spectrum of light and emotion… and ultimately transcends.
 
-**This is a major upgrade of my earlier project _transcendence-pet-sim_.** New UI, my own character designs, a device-style **power button**, a real **training** system, incremental **size growth** as the pet evolves, a **DNA sinewave** backdrop, a full **Blender → FBX → Three.js** animation pipeline, and a full **audio** pass (SFX + theme music switch).
+**This is a major upgrade of my earlier project [transcendence-pet-sim](https://github.com/Cordero080/transcendence-pet-sim).** New UI, my own character designs, a device-style **power button**, a real **training** system, incremental **size growth** as the pet evolves, a **DNA sinewave** backdrop, a full **Blender → FBX → Three.js** animation pipeline, and a full **audio** pass (SFX + theme music switch).
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (v14 or higher)
+- Modern browser with WebGL support (Chrome, Firefox, Safari, Edge)
+
+### Installation & Running
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/Cordero080/Transcendence-3D-v2.git
+   cd Transcendence-3D-v2
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server**
+
+   ```bash
+   npm run dev
+   ```
+
+4. **Open your browser** to the local URL shown in the terminal (usually `http://localhost:5173`)
+
+5. **Click the Power button** to boot up the simulation and start playing!
+
+### Other Commands
+
+```bash
+npm run build    # Build for production
+npm run preview  # Preview production build
+npm test         # Run unit tests
+npm run test:watch  # Run tests in watch mode
+```
 
 ## ✨ What's New
 
@@ -62,12 +108,14 @@ if any stat <= 0: fadeOut(); alive = false
 
 POWER OFF → save state → shutdown animation
 
-## 🧩 Tech & Pipeline
+## 🧩 Technologies Used
 
-- **Three.js** scene + FBX animation blending
-- **Blender** authoring (**32** animations)
-- **Web Audio** for SFX and music switching
-- Vanilla JS UI, device frame, **DNA sinewave** background
+- **Three.js** — 3D rendering, scene management, FBX animation blending
+- **JavaScript ES6+** — Core game logic and state management
+- **Blender 3D** — Character modeling, rigging, and animation authoring (32 animations)
+- **Web Audio API** — SFX and dynamic music switching
+- **Jest** — Unit testing for game modules
+- **HTML5/CSS3** — Vanilla JS UI, device frame, DNA sinewave background
 
 ## 📷 Screenshots
 
@@ -122,7 +170,8 @@ POWER OFF → save state → shutdown animation
 
 ## 🙌 Credits
 
-- **Design / Code / Characters**: me
+- **Design / Code / Characters**: Pablo Cordero
+- **Contact**: cordero080@gmail.com
 - Inspired by Tamagotchi + spectrum-of-light/energy ideas
 
 ## 🔭 Next Ideas
@@ -131,3 +180,7 @@ POWER OFF → save state → shutdown animation
 - Device "battery" meta stat tied to Power
 - Soft achievements (e.g., Perfect Discipline chain)
 - Easter egg: alternate game after user wins the game
+
+## 📄 License
+
+MIT License - feel free to use this code for learning purposes.
