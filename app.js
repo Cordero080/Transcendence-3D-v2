@@ -254,7 +254,7 @@ const gameSettings = {
 const stageMap = {
   0: {
     stage: "blue",
-    message: " I've evolved into Blue Form! So, this is life!",
+    message: ": I've been born into Blue Form! So, this is life!",
   },
   1: {
     stage: "yellow",
@@ -459,16 +459,22 @@ function updateButtonStatesForEvolution() {
     feedButton.style.cursor = "not-allowed";
     sleepButton.style.cursor = "not-allowed";
 
-    // Grey out hunger and sleep timer displays and show 'Stopped'
-    if (hungerTimer) {
-      hungerTimer.style.opacity = "0.3";
-      hungerTimer.style.color;
-      hungerTimer.textContent = "G0DM0DE";
+    // Grey out hunger and sleep bars and show 'G0DM0DE'
+    const hungerValue = document.getElementById("hungerValue");
+    const sleepValue = document.getElementById("sleepValue");
+    const hungerBar = document.getElementById("hungerBar");
+    const sleepBar = document.getElementById("sleepBar");
+
+    if (hungerValue) {
+      hungerValue.parentElement.style.opacity = "0.3";
+      hungerValue.parentElement.textContent = "G0DM0DE";
     }
-    if (sleepTimer) {
-      sleepTimer.style.opacity = "0.3";
-      sleepTimer.textContent = "G0DM0DE";
+    if (sleepValue) {
+      sleepValue.parentElement.style.opacity = "0.3";
+      sleepValue.parentElement.textContent = "G0DM0DE";
     }
+    if (hungerBar) hungerBar.parentElement.style.opacity = "0.3";
+    if (sleepBar) sleepBar.parentElement.style.opacity = "0.3";
 
     // Stop hunger and sleep timers so they do not update in white stage
     if (myPet && myPet.hungerTimer) {
@@ -896,20 +902,31 @@ class Pet {
       `🧾 ${this.name} | Age: ${this.age} | Hunger: ${this.hunger} | Fun: ${this.fun} | Sleep: ${this.sleep} |Power: ${this.power} |  Stage: ${this.stage}`
     );
 
-    // Only update hunger and sleep timer displays if not in white stage and timers are running
-    if (this.stage !== "white" && hungerTimer && this.hungerTimer) {
-      hungerTimer.textContent = `Hunger: ${this.hunger}`;
+    // Update energy bars and values
+    const hungerBar = document.getElementById("hungerBar");
+    const hungerValue = document.getElementById("hungerValue");
+    const funBar = document.getElementById("funBar");
+    const funValue = document.getElementById("funValue");
+    const sleepBar = document.getElementById("sleepBar");
+    const sleepValue = document.getElementById("sleepValue");
+    const powerBar = document.getElementById("powerBar");
+    const powerValue = document.getElementById("powerValue");
+
+    // Only update hunger and sleep if not in white stage and timers are running
+    if (this.stage !== "white" && this.hungerTimer) {
+      if (hungerBar) hungerBar.style.width = `${(this.hunger / 10) * 100}%`;
+      if (hungerValue) hungerValue.textContent = this.hunger;
     }
-    if (this.stage !== "white" && sleepTimer && this.sleepTimer) {
-      sleepTimer.textContent = `Sleep: ${this.sleep}`;
+    if (this.stage !== "white" && this.sleepTimer) {
+      if (sleepBar) sleepBar.style.width = `${(this.sleep / 10) * 100}%`;
+      if (sleepValue) sleepValue.textContent = this.sleep;
     }
+
     // Always update fun and power
-    if (funTimer) {
-      funTimer.textContent = `Fun: ${this.fun}`;
-    }
-    if (powerTimer) {
-      powerTimer.textContent = `Power: ${this.power}`;
-    }
+    if (funBar) funBar.style.width = `${(this.fun / 10) * 100}%`;
+    if (funValue) funValue.textContent = this.fun;
+    if (powerBar) powerBar.style.width = `${(this.power / 10) * 100}%`;
+    if (powerValue) powerValue.textContent = this.power;
 
     // Show stageMap message in petChat for the current stage
     if (petChat && stageMap[this.evolutionLevel]) {
@@ -947,7 +964,8 @@ function hideGlitchEgg() {
 }
 function startGame() {
   return new Promise((resolve) => {
-    myPet = new Pet("Coco:");
+    const petName = window.petName || "Coco";
+    myPet = new Pet(petName);
 
     // TEMPORARY BYPASS to WHITE EVOLUTION
 
@@ -1104,7 +1122,8 @@ function resetGame() {
   } catch {}
 
   // ── E) Reset core state ─────────────────────────────────────────────────────
-  myPet = new Pet("Coco");
+  const petName = window.petName || "Coco";
+  myPet = new Pet(petName);
   currentStage = "blue";
   myPet.stage = "blue";
   myPet.evolutionLevel = 0; // ← Ensure evolution level is reset to 0
@@ -1148,11 +1167,30 @@ function resetGame() {
     console.error("❌ Failed to clear 3D model:", err);
   }
 
-  // ── H) Reset UI timers display ───────────────────────────────────────────────
-  if (hungerTimer) hungerTimer.textContent = "Hunger: 0";
-  if (funTimer) funTimer.textContent = "Fun: 10";
-  if (sleepTimer) sleepTimer.textContent = "Zzz: 0";
-  if (powerTimer) powerTimer.textContent = "Power: 10";
+  // ── H) Reset UI energy bars and values ──────────────────────────────────────
+  const hungerBar = document.getElementById("hungerBar");
+  const hungerValue = document.getElementById("hungerValue");
+  const funBar = document.getElementById("funBar");
+  const funValue = document.getElementById("funValue");
+  const sleepBar = document.getElementById("sleepBar");
+  const sleepValue = document.getElementById("sleepValue");
+  const powerBar = document.getElementById("powerBar");
+  const powerValue = document.getElementById("powerValue");
+
+  if (hungerBar) hungerBar.style.width = "0%";
+  if (hungerValue) hungerValue.textContent = "0";
+  if (funBar) funBar.style.width = "100%";
+  if (funValue) funValue.textContent = "10";
+  if (sleepBar) sleepBar.style.width = "0%";
+  if (sleepValue) sleepValue.textContent = "0";
+  if (powerBar) powerBar.style.width = "100%";
+  if (powerValue) powerValue.textContent = "10";
+
+  // Reset stat label opacity if it was changed in white stage
+  const statLabels = document.querySelectorAll(".stat-label");
+  statLabels.forEach((label) => (label.style.opacity = "1"));
+  const statBars = document.querySelectorAll(".stat-bar");
+  statBars.forEach((bar) => (bar.style.opacity = "1"));
 
   console.log("resetGame() complete - Click START to hatch the egg again.");
 }
@@ -2451,14 +2489,33 @@ document.addEventListener("click", (e) => {
 // === Wire buttons AFTER the DOM exists ===
 window.addEventListener("DOMContentLoaded", () => {
   const overlay = document.getElementById("pageOverlay");
+  const nameOverlay = document.getElementById("nameOverlay");
   const overlayBtn = document.getElementById("overlayStartButton"); // START GAME
+  const confirmNameBtn = document.getElementById("confirmNameBtn"); // CONFIRM NAME
+  const petNameInput = document.getElementById("petNameInput");
   const startBtn = document.querySelector(".StartButton"); // START
   const egg = document.getElementById("colorfulGlitchDiv");
 
-  // 1) START GAME: close overlay, show egg idle (do NOT hatch here)
+  // 1) START GAME: close welcome overlay, show name input overlay
   if (overlayBtn) {
     overlayBtn.addEventListener("click", async () => {
       if (overlay) overlay.style.display = "none";
+      if (nameOverlay) nameOverlay.style.display = "flex";
+      // Focus the input field
+      if (petNameInput) {
+        setTimeout(() => petNameInput.focus(), 100);
+      }
+    });
+  }
+
+  // 2) CONFIRM NAME: close name overlay, show egg, save pet name
+  if (confirmNameBtn && petNameInput) {
+    const confirmName = async () => {
+      const petName = petNameInput.value.trim() || "Coco";
+      // Store the name globally for use when creating the pet
+      window.petName = petName;
+
+      if (nameOverlay) nameOverlay.style.display = "none";
       if (egg) {
         egg.style.display = "flex";
         egg.classList.remove("hatching");
@@ -2473,10 +2530,19 @@ window.addEventListener("DOMContentLoaded", () => {
           await theme.play();
         } catch {}
       }
+    };
+
+    confirmNameBtn.addEventListener("click", confirmName);
+
+    // Allow Enter key to confirm name
+    petNameInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        confirmName();
+      }
     });
   }
 
-  // 2) START: hatch the egg, then start the game
+  // 3) START: hatch the egg, then start the game
   if (startBtn) {
     startBtn.addEventListener("click", async () => {
       // Play egg hatch sound
@@ -2513,6 +2579,26 @@ window.addEventListener("DOMContentLoaded", () => {
     resetBtn.addEventListener("click", () => {
       console.log("🔄 RESET button clicked");
       resetGame();
+    });
+  }
+
+  // 4) DEBUG TRANSCEND: instantly trigger transcendence for testing
+  const debugTranscendBtn = document.getElementById("debugTranscendBtn");
+  if (debugTranscendBtn) {
+    debugTranscendBtn.addEventListener("click", () => {
+      console.log(
+        "🧪 DEBUG TRANSCEND clicked - triggering transcendence effects"
+      );
+      // Trigger the mystical transcendence effect first
+      triggerMysticalTranscendence(9000);
+      // Trigger intergalactic beam 1 second later (matching the actual game sequence)
+      setTimeout(() => {
+        triggerIntergalacticBeam();
+      }, 1000);
+      // Show the transcendence overlay after effects complete
+      setTimeout(() => {
+        showWhiteTranscendenceOverlay();
+      }, 9000);
     });
   }
 });

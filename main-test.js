@@ -195,7 +195,7 @@ function loadAndDisplayFBX(path, pose = {}, options = {}) {
         petRoot.add(fbx);
         activeModel = fbx;
         currentPose = path;
-      fitModelForViewport(activeModel, lastBaseScale);
+        fitModelForViewport(activeModel, lastBaseScale);
 
         // ----- animation (guard if no clips) -----
         mixer = new THREE.AnimationMixer(fbx);
@@ -219,7 +219,6 @@ function loadAndDisplayFBX(path, pose = {}, options = {}) {
     );
   });
 }
-
 
 function hasActiveModel() {
   return !!activeModel;
@@ -356,7 +355,6 @@ function animate() {
 
   if (mixer) mixer.update(delta);
 
-  
   renderer.render(scene, camera);
 }
 

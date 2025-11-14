@@ -88,6 +88,77 @@
       </div>
     </div>
 
+    <!-- Pet Name Input Overlay -->
+    <div id="nameOverlay" class="page-overlay" style="display: none">
+      <div class="overlay-content">
+        <h2>
+          <svg width="58" height="58" viewBox="0 0 32 32" style="vertical-align: middle; margin-right: 8px;" class="crystal-icon-left">
+            <defs>
+              <linearGradient id="crystalGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:oklch(77.194% 0.17376 64.545);stop-opacity:1" />
+                <stop offset="25%" style="stop-color:oklch(87.027% 0.28955 141.531);stop-opacity:1" />
+                <stop offset="50%" style="stop-color:oklch(89.994% 0.15767 186.289);stop-opacity:1" />
+                <stop offset="75%" style="stop-color:oklch(56.347% 0.24089 260.834);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:oklch(64.532% 0.26038 2.454);stop-opacity:1" />
+              </linearGradient>
+              <radialGradient id="crystalGlow1">
+                <stop offset="0%" style="stop-color:oklch(89.994% 0.15767 186.289);stop-opacity:0.6" />
+                <stop offset="100%" style="stop-color:oklch(56.347% 0.24089 260.834);stop-opacity:0" />
+              </radialGradient>
+            </defs>
+            <g>
+              <!-- Crystal facets -->
+              <path d="M16 2 L24 12 L16 30 L8 12 Z" fill="url(#crystalGlow1)" stroke="url(#crystalGradient1)" stroke-width="1.5"/>
+              <path d="M16 2 L24 12 L16 16 Z" fill="url(#crystalGradient1)" opacity="0.4"/>
+              <path d="M16 2 L8 12 L16 16 Z" fill="url(#crystalGradient1)" opacity="0.6"/>
+              <path d="M16 16 L24 12 L16 30 Z" fill="url(#crystalGradient1)" opacity="0.3"/>
+              <path d="M16 16 L8 12 L16 30 Z" fill="url(#crystalGradient1)" opacity="0.5"/>
+              <!-- Inner glow line -->
+              <line x1="16" y1="8" x2="16" y2="24" stroke="url(#crystalGradient1)" stroke-width="1.5" opacity="0.8"/>
+            </g>
+          </svg>
+          Name Your Pet
+          <svg width="58" height="58" viewBox="0 0 32 32" style="vertical-align: middle; margin-left: 8px;" class="crystal-icon-right">
+            <defs>
+              <linearGradient id="crystalGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:oklch(77.194% 0.17376 64.545);stop-opacity:1" />
+                <stop offset="25%" style="stop-color:oklch(87.027% 0.28955 141.531);stop-opacity:1" />
+                <stop offset="50%" style="stop-color:oklch(89.994% 0.15767 186.289);stop-opacity:1" />
+                <stop offset="75%" style="stop-color:oklch(56.347% 0.24089 260.834);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:oklch(64.532% 0.26038 2.454);stop-opacity:1" />
+              </linearGradient>
+              <radialGradient id="crystalGlow2">
+                <stop offset="0%" style="stop-color:oklch(89.994% 0.15767 186.289);stop-opacity:0.6" />
+                <stop offset="100%" style="stop-color:oklch(56.347% 0.24089 260.834);stop-opacity:0" />
+              </radialGradient>
+            </defs>
+            <g>
+              <!-- Crystal facets -->
+              <path d="M16 2 L24 12 L16 30 L8 12 Z" fill="url(#crystalGlow2)" stroke="url(#crystalGradient2)" stroke-width="1.5"/>
+              <path d="M16 2 L24 12 L16 16 Z" fill="url(#crystalGradient2)" opacity="0.4"/>
+              <path d="M16 2 L8 12 L16 16 Z" fill="url(#crystalGradient2)" opacity="0.6"/>
+              <path d="M16 16 L24 12 L16 30 Z" fill="url(#crystalGradient2)" opacity="0.3"/>
+              <path d="M16 16 L8 12 L16 30 Z" fill="url(#crystalGradient2)" opacity="0.5"/>
+              <!-- Inner glow line -->
+              <line x1="16" y1="8" x2="16" y2="24" stroke="url(#crystalGradient2)" stroke-width="1.5" opacity="0.8"/>
+            </g>
+          </svg>
+        </h2>
+        <p>What will you call your virtual companion?</p>
+        <input 
+          type="text" 
+          id="petNameInput" 
+          class="pet-name-input"
+          placeholder="Enter pet name..."
+          maxlength="15"
+          autocomplete="off"
+        />
+        <button class="OverlayStartButton" id="confirmNameBtn">
+          CONFIRM
+        </button>
+      </div>
+    </div>
+
     <div class="scaling-root">
       <!-- transcendence was here -->
 
@@ -96,7 +167,7 @@
       </header>
       <!-- I gave main-wrapper an id, but it is still main, following David's example, although he didn't assign an id to it -->
       <main id="main-wrapper">
-        <button class="CornerRoundButton" id="infoDropdownBtn">&#9776;</button>
+        <button class="CornerRoundButton" id="infoDropdownBtn"></button>
         <div class="dropdown-container">
           <!-- Dropdown menu (hidden by default) -->
           <div
@@ -147,6 +218,7 @@
             <div class="stutter-scanlines"></div>
             <div class="stutter-static"></div>
             <div class="stutter-flash"></div>
+            <div class="radial-burst-ring"></div>
           </div>
 
           <!-- Second glitch overlay layer with inverted colors -->
@@ -163,19 +235,39 @@
           <div class="infoBox-controls">
             <div class="button-container">
               <button class="Buttons feed-btn" id="feed-button">FEED</button>
-              <div class="timer-display" id="hungerTimer">Hunger: 0</div>
+              <div class="stat-bar-container">
+                <div class="stat-bar hunger-bar">
+                  <div class="stat-bar-fill" id="hungerBar" style="width: 0%"></div>
+                </div>
+                <span class="stat-label">Hunger: <span id="hungerValue">0</span></span>
+              </div>
             </div>
             <div class="button-container">
               <button class="Buttons dance-btn" id="dance-button">DANCE</button>
-              <div class="timer-display" id="funTimer">Fun: 10</div>
+              <div class="stat-bar-container">
+                <div class="stat-bar fun-bar">
+                  <div class="stat-bar-fill" id="funBar" style="width: 100%"></div>
+                </div>
+                <span class="stat-label">Fun: <span id="funValue">10</span></span>
+              </div>
             </div>
             <div class="button-container">
               <button class="Buttons sleep-btn" id="sleep-button">SLEEP</button>
-              <div class="timer-display" id="sleepTimer">Zzz: 0</div>
+              <div class="stat-bar-container">
+                <div class="stat-bar sleep-bar">
+                  <div class="stat-bar-fill" id="sleepBar" style="width: 0%"></div>
+                </div>
+                <span class="stat-label">Sleep: <span id="sleepValue">0</span></span>
+              </div>
             </div>
             <div class="button-container">
               <button class="Buttons train-btn" id="power-button">TRAIN</button>
-              <div class="timer-display" id="powerTimer">Power: 10</div>
+              <div class="stat-bar-container">
+                <div class="stat-bar power-bar">
+                  <div class="stat-bar-fill" id="powerBar" style="width: 100%"></div>
+                </div>
+                <span class="stat-label">Power: <span id="powerValue">10</span></span>
+              </div>
             </div>
           </div>
 
@@ -205,29 +297,31 @@
         </div>
       </div>
 
-      <!-- ✅ Transcendence Win Overlay -->
-      <div id="transcendenceOverlay" class="overlay" style="display: none">
-        <div class="transcendence-overlay-content">
-          <h2 class="transcendence-title gradient-text">TRANSCENDENCE</h2>
-          <p class="transcendence-message gradient-text">
-            ✨👁 TRANSCENDENCE COMPLETE 👁✨<br />
-            Your pet has mastered the art of care and transcended beyond
-            existence.<br />
-            The ultimate evolution has been achieved through perfect balance.
-          </p>
-          <button id="playAgainBtn" class="btn-play-again">
-            <span class="gradient-text">PLAY AGAIN</span>
-          </button>
-        </div>
-      </div>
-
       <div class="startButtonContainer">
         <button class="StartButton">START</button>
         <button class="ResetButton">RESET</button>
+        <!-- Debug button for testing transcendence -->
+        <button class="ResetButton" id="debugTranscendBtn" style="background: oklch(55.657% 0.27058 200); margin-left: 10px;">DEBUG TRANSCEND</button>
         <!-- scaling root end -->
       </div>
     </div>
     <!-- Full-screen Cyberpunk Transition Overlay -->
+
+    <!-- ✅ Transcendence Win Overlay (outside scaling-root to avoid transform issues) -->
+    <div id="transcendenceOverlay" class="overlay" style="display: none">
+      <div class="transcendence-overlay-content">
+        <h2 class="transcendence-title gradient-text">TRANSCENDENCE</h2>
+        <p class="transcendence-message gradient-text">
+          ✨👁 TRANSCENDENCE COMPLETE 👁✨<br />
+          Your pet has mastered the art of care and transcended beyond
+          existence.<br />
+          The ultimate evolution has been achieved through perfect balance.
+        </p>
+        <button id="playAgainBtn" class="btn-play-again">
+          <span class="gradient-text">PLAY AGAIN</span>
+        </button>
+      </div>
+    </div>
 
 </div>
   </body>
