@@ -47,8 +47,9 @@ const {
   danceIndicator,
   sleepIndicator,
   powerIndicator,
-  glitchStutterOverlay,
-  glitchStutterOverlay2,
+  glitchOverlay,
+  glitchOverlay2,
+  transcendenceEffect,
   glitchDiv,
   // winOverlay,
   bgMusic,
@@ -1444,7 +1445,7 @@ function triggerCyberpunkEvolutionEffect(duration = 6000) {
       console.log("🔇 stutterMask.wav audio play() blocked:", err);
     });
   }
-  if (glitchStutterOverlay) {
+  if (glitchOverlay) {
     console.log("🌟✨ Cyberpunk magical evolution effect triggered");
 
     // Get the current cat position and dimensions
@@ -1452,14 +1453,14 @@ function triggerCyberpunkEvolutionEffect(duration = 6000) {
 
     if (catData) {
       // Position the effect around the cat
-      glitchStutterOverlay.style.left = `${catData.x}px`;
-      glitchStutterOverlay.style.top = `${catData.y}px`;
-      glitchStutterOverlay.style.width = `${catData.width * 1.5}px`; // Larger for particles
-      glitchStutterOverlay.style.height = `${catData.height * 1.5}px`;
-      glitchStutterOverlay.style.transform = "translate(-50%, -50%)";
+      glitchOverlay.style.left = `${catData.x}px`;
+      glitchOverlay.style.top = `${catData.y}px`;
+      glitchOverlay.style.width = `${catData.width * 1.5}px`; // Larger for particles
+      glitchOverlay.style.height = `${catData.height * 1.5}px`;
+      glitchOverlay.style.transform = "translate(-50%, -50%)";
 
       // Create cyberpunk magical glow mask with particles
-      glitchStutterOverlay.style.webkitMask = `
+      glitchOverlay.style.webkitMask = `
         radial-gradient(ellipse 60% 70% at 50% 45%, black 0%, black 40%, transparent 80%),
         radial-gradient(circle 8px at 25% 30%, black 0%, transparent 50%),
         radial-gradient(circle 6px at 75% 25%, black 0%, transparent 50%),
@@ -1468,7 +1469,7 @@ function triggerCyberpunkEvolutionEffect(duration = 6000) {
         radial-gradient(circle 5px at 85% 50%, black 0%, transparent 50%),
         radial-gradient(circle 7px at 15% 60%, black 0%, transparent 50%)
       `;
-      glitchStutterOverlay.style.mask = `
+      glitchOverlay.style.mask = `
         radial-gradient(ellipse 60% 70% at 50% 45%, black 0%, black 40%, transparent 80%),
         radial-gradient(circle 8px at 25% 30%, black 0%, transparent 50%),
         radial-gradient(circle 6px at 75% 25%, black 0%, transparent 50%),
@@ -1482,7 +1483,7 @@ function triggerCyberpunkEvolutionEffect(duration = 6000) {
     }
 
     // Add evolution-specific class for enhanced effect
-    glitchStutterOverlay.classList.add("active", "evolution");
+    glitchOverlay.classList.add("active", "evolution");
 
     // Create pulsing effect with multiple phases
     let pulseCount = 0;
@@ -1492,7 +1493,7 @@ function triggerCyberpunkEvolutionEffect(duration = 6000) {
       // Alternate between intense glow and particle burst
       if (pulseCount % 2 === 0) {
         // Intense glow phase
-        glitchStutterOverlay.style.filter = `
+        glitchOverlay.style.filter = `
           brightness(300%) 
           contrast(200%) 
           hue-rotate(${Math.random() * 80}deg) 
@@ -1503,7 +1504,7 @@ function triggerCyberpunkEvolutionEffect(duration = 6000) {
         `;
       } else {
         // Particle burst phase
-        glitchStutterOverlay.style.filter = `
+        glitchOverlay.style.filter = `
           brightness(500%) 
           contrast(300%) 
           hue-rotate(${180 + Math.random() * 60}deg) 
@@ -1522,18 +1523,18 @@ function triggerCyberpunkEvolutionEffect(duration = 6000) {
 
     // Remove the effect after specified duration
     setTimeout(() => {
-      glitchStutterOverlay.classList.remove("active", "evolution");
+      glitchOverlay.classList.remove("active", "evolution");
       clearInterval(pulseInterval);
 
       // Reset all styles after effect
       setTimeout(() => {
-        glitchStutterOverlay.style.left = "50%";
-        glitchStutterOverlay.style.top = "50%";
-        glitchStutterOverlay.style.width = "280px";
-        glitchStutterOverlay.style.height = "380px";
-        glitchStutterOverlay.style.webkitMask = "";
-        glitchStutterOverlay.style.mask = "";
-        glitchStutterOverlay.style.filter = "";
+        glitchOverlay.style.left = "50%";
+        glitchOverlay.style.top = "50%";
+        glitchOverlay.style.width = "280px";
+        glitchOverlay.style.height = "380px";
+        glitchOverlay.style.webkitMask = "";
+        glitchOverlay.style.mask = "";
+        glitchOverlay.style.filter = "";
       }, 100);
       console.log("✨ Cyberpunk magical evolution effect ended");
     }, duration);
@@ -1550,7 +1551,7 @@ window.triggerCyberPunkEvolutionEffect = triggerCyberpunkEvolutionEffect;
 // ============ ✨ MYSTICAL TRANSCENDENCE EFFECT SYSTEM ============ \\
 function triggerMysticalTranscendence(duration = 16500) {
   // Extended from 11000 to 16500ms (50% longer)
-  if (glitchStutterOverlay) {
+  if (transcendenceOverlay) {
     console.log(
       "🌟✨ Mystical transcendence effect with mandala glow triggered"
     );
@@ -1560,39 +1561,18 @@ function triggerMysticalTranscendence(duration = 16500) {
 
     if (catData) {
       // Position the effect around the cat with even larger coverage for mystical aura + halo
-      glitchStutterOverlay.style.left = `${catData.x}px`;
-      glitchStutterOverlay.style.top = `${catData.y}px`;
-      glitchStutterOverlay.style.width = `${catData.width * 4.2}px`; // 20% larger for halo effect
-      glitchStutterOverlay.style.height = `${catData.height * 3.0}px`; // 20% larger for halo effect
-      glitchStutterOverlay.style.transform = "translate(-50%, -50%)";
+      transcendenceOverlay.style.left = `${catData.x}px`;
+      transcendenceOverlay.style.top = `${catData.y}px`;
+      transcendenceOverlay.style.width = `${catData.width * 4.2}px`; // 20% larger for halo effect
+      transcendenceOverlay.style.height = `${catData.height * 3.0}px`; // 20% larger for halo effect
+      transcendenceOverlay.style.transform = "translate(-50%, -50%)";
 
-      // Create mystical mandala mask around the cat with large halo
-      glitchStutterOverlay.style.webkitMask = `
-        radial-gradient(circle 120% at 50% 50%, black 0%, black 15%, transparent 80%),
-        radial-gradient(circle 10px at 50% 20%, black 0%, transparent 60%),
-        radial-gradient(circle 8px at 80% 35%, black 0%, transparent 50%),
-        radial-gradient(circle 12px at 65% 80%, black 0%, transparent 60%),
-        radial-gradient(circle 6px at 20% 65%, black 0%, transparent 45%),
-        radial-gradient(circle 15px at 35% 15%, black 0%, transparent 70%),
-        radial-gradient(circle 9px at 85% 85%, black 0%, transparent 55%)
-      `;
-      glitchStutterOverlay.style.mask = `
-        radial-gradient(circle 120% at 50% 50%, black 0%, black 15%, transparent 80%),
-        radial-gradient(circle 10px at 50% 20%, black 0%, transparent 60%),
-        radial-gradient(circle 8px at 80% 35%, black 0%, transparent 50%),
-        radial-gradient(circle 12px at 65% 80%, black 0%, transparent 60%),
-        radial-gradient(circle 6px at 20% 65%, black 0%, transparent 45%),
-        radial-gradient(circle 15px at 35% 15%, black 0%, transparent 70%),
-        radial-gradient(circle 9px at 85% 85%, black 0%, transparent 55%)
-      `;
-
-      console.log(
-        `✨ Mystical mandala mask applied around cat for transcendence`
-      );
+      // Note: Mask styling removed as transcendence effect is now self-contained in CSS
+      console.log(`✨ Mystical transcendence effect positioned around cat`);
     }
 
-    // Add transcendence class for mystical effect
-    glitchStutterOverlay.classList.add("active", "transcendence");
+    // Add active class for mystical transcendence effect
+    transcendenceOverlay.classList.add("active");
 
     // Create mystical pulsing pattern with color shifts - SLOW BUILD-UP
     let pulseCount = 0;
@@ -1605,7 +1585,7 @@ function triggerMysticalTranscendence(duration = 16500) {
 
       if (phase === 0) {
         // Very subtle divine white-gold phase (starts almost invisible)
-        glitchStutterOverlay.style.filter = `
+        transcendenceOverlay.style.filter = `
           blur(2px) 
           brightness(90%) 
           saturate(110%) 
@@ -1614,7 +1594,7 @@ function triggerMysticalTranscendence(duration = 16500) {
         `;
       } else if (phase === 1) {
         // Subtle pink-purple mystical phase
-        glitchStutterOverlay.style.filter = `
+        transcendenceOverlay.style.filter = `
           blur(1.8px) 
           brightness(100%) 
           saturate(130%) 
@@ -1623,7 +1603,7 @@ function triggerMysticalTranscendence(duration = 16500) {
         `;
       } else if (phase === 2) {
         // Gentle indigo cosmic phase
-        glitchStutterOverlay.style.filter = `
+        transcendenceOverlay.style.filter = `
           blur(1.5px) 
           brightness(110%) 
           saturate(150%) 
@@ -1632,7 +1612,7 @@ function triggerMysticalTranscendence(duration = 16500) {
         `;
       } else if (phase === 3) {
         // Building sky blue ethereal phase
-        glitchStutterOverlay.style.filter = `
+        transcendenceOverlay.style.filter = `
           blur(1.3px) 
           brightness(130%) 
           saturate(180%) 
@@ -1641,7 +1621,7 @@ function triggerMysticalTranscendence(duration = 16500) {
         `;
       } else if (phase === 4) {
         // Gradual golden divine phase
-        glitchStutterOverlay.style.filter = `
+        transcendenceOverlay.style.filter = `
           blur(1px) 
           brightness(150%) 
           saturate(200%) 
@@ -1650,7 +1630,7 @@ function triggerMysticalTranscendence(duration = 16500) {
         `;
       } else if (phase === 5) {
         // Growing rainbow harmony phase
-        glitchStutterOverlay.style.filter = `
+        transcendenceOverlay.style.filter = `
           blur(0.8px) 
           brightness(170%) 
           saturate(250%) 
@@ -1661,7 +1641,7 @@ function triggerMysticalTranscendence(duration = 16500) {
         `;
       } else if (phase === 6) {
         // Intensifying cosmic phase
-        glitchStutterOverlay.style.filter = `
+        transcendenceOverlay.style.filter = `
           blur(1px) 
           brightness(190%) 
           saturate(300%) 
@@ -1673,7 +1653,7 @@ function triggerMysticalTranscendence(duration = 16500) {
       } else {
         // Extended peak transcendence phase (lasts 50% longer)
         const intensity = Math.min(1.0 + (pulseCount / totalPhases) * 0.5, 1.5); // Gradual build to peak
-        glitchStutterOverlay.style.filter = `
+        transcendenceOverlay.style.filter = `
           blur(1.2px) 
           brightness(${210 * intensity}%) 
           saturate(${350 * intensity}%) 
@@ -1693,18 +1673,18 @@ function triggerMysticalTranscendence(duration = 16500) {
 
     // Remove the effect after specified duration
     setTimeout(() => {
-      glitchStutterOverlay.classList.remove("active", "transcendence");
+      transcendenceOverlay.classList.remove("active", "transcendence");
       clearInterval(mysticalInterval);
 
       // Reset all styles after effect
       setTimeout(() => {
-        glitchStutterOverlay.style.left = "50%";
-        glitchStutterOverlay.style.top = "50%";
-        glitchStutterOverlay.style.width = "280px";
-        glitchStutterOverlay.style.height = "380px";
-        glitchStutterOverlay.style.webkitMask = "";
-        glitchStutterOverlay.style.mask = "";
-        glitchStutterOverlay.style.filter = "";
+        transcendenceOverlay.style.left = "50%";
+        transcendenceOverlay.style.top = "50%";
+        transcendenceOverlay.style.width = "280px";
+        transcendenceOverlay.style.height = "380px";
+        transcendenceOverlay.style.webkitMask = "";
+        transcendenceOverlay.style.mask = "";
+        transcendenceOverlay.style.filter = "";
       }, 100);
       console.log("🌟✨ Mystical transcendence effect ended");
     }, duration);
@@ -1713,7 +1693,7 @@ function triggerMysticalTranscendence(duration = 16500) {
 
 // ============ ⚡ GLITCH STUTTER EFFECT SYSTEM ============ \\
 function triggerGlitchStutter(duration = 120) {
-  // Play stutterMask.wav every time glitchStutterOverlay is triggered
+  // Play stutterMask.wav every time glitchOverlay is triggered
   const glitchStutterAudio = document.getElementById("stutterMask");
   if (glitchStutterAudio) {
     glitchStutterAudio.currentTime = 0;
@@ -1722,7 +1702,7 @@ function triggerGlitchStutter(duration = 120) {
       console.log("🔇 stutterMask.wav audio play() blocked:", err);
     });
   }
-  if (glitchStutterOverlay) {
+  if (glitchOverlay) {
     console.log(
       "⚡ Dynamic cat-shaped glitch stutter triggered with inverted layer"
     );
@@ -1732,9 +1712,7 @@ function triggerGlitchStutter(duration = 120) {
 
     if (catData) {
       // Apply dynamic positioning and sizing to BOTH overlays
-      const overlays = [glitchStutterOverlay, glitchStutterOverlay2].filter(
-        Boolean
-      );
+      const overlays = [glitchOverlay, glitchOverlay2].filter(Boolean);
 
       overlays.forEach((overlay, index) => {
         if (overlay) {
@@ -1788,23 +1766,21 @@ function triggerGlitchStutter(duration = 120) {
     }
 
     // Add active class to trigger the effect on BOTH overlays
-    glitchStutterOverlay.classList.add("active");
-    if (glitchStutterOverlay2) {
-      glitchStutterOverlay2.classList.add("active");
+    glitchOverlay.classList.add("active");
+    if (glitchOverlay2) {
+      glitchOverlay2.classList.add("active");
     }
 
     // Remove the effect after specified duration
     setTimeout(() => {
-      glitchStutterOverlay.classList.remove("active");
-      if (glitchStutterOverlay2) {
-        glitchStutterOverlay2.classList.remove("active");
+      glitchOverlay.classList.remove("active");
+      if (glitchOverlay2) {
+        glitchOverlay2.classList.remove("active");
       }
 
       // Reset positioning after effect for BOTH overlays
       setTimeout(() => {
-        const overlays = [glitchStutterOverlay, glitchStutterOverlay2].filter(
-          Boolean
-        );
+        const overlays = [glitchOverlay, glitchOverlay2].filter(Boolean);
         overlays.forEach((overlay, index) => {
           if (overlay) {
             overlay.style.left = "50%";
@@ -2594,7 +2570,7 @@ window.addEventListener("DOMContentLoaded", () => {
     if (getComputedStyle(pc).position === "static")
       pc.style.position = "relative"; // optional: quick stutter flash if your overlays exist
 
-    ["glitchStutterOverlay", "glitchStutterOverlay2"].forEach((id) => {
+    ["glitchOverlay", "glitchOverlay2"].forEach((id) => {
       const el = document.getElementById(id);
       if (el) {
         el.style.opacity = "1";

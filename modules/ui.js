@@ -22,32 +22,54 @@ export function initUI() {
   const danceIndicator = document.querySelector("#funTimer");
   const sleepIndicator = document.querySelector("#sleepTimer");
   const powerIndicator = document.querySelector("#powerTimer");
-  const glitchStutterOverlay = document.getElementById("glitchStutterOverlay");
-  const glitchStutterOverlay2 = document.getElementById("glitchStutterOverlay2");
+  const glitchOverlay = document.getElementById("glitchOverlay");
+  const glitchOverlay2 = document.getElementById("glitchOverlay2");
+  const transcendenceEffect = document.getElementById("transcendenceEffect");
   const glitchDiv = document.getElementById("colorfulGlitchDiv");
   // const winOverlay = document.getElementById("winOverlay");
   const bgMusic = document.getElementById("bg-music");
   const spaceEngineAudio = document.getElementById("space-engine");
   const feedButton = buttons[0];
-const danceButton = buttons[1];
-const sleepButton = buttons[2];
-const trainButton = buttons[3];
+  const danceButton = buttons[1];
+  const sleepButton = buttons[2];
+  const trainButton = buttons[3];
 
   return {
     // existing returns...
-    evolutionAudio, evolveEffectAudio, highTechAudio,
+    evolutionAudio,
+    evolveEffectAudio,
+    highTechAudio,
     // gameOverOverlay,
-     reasonElement, petChat,
-    hungerTimer, funTimer, sleepTimer, powerTimer,
-    overlay, overlayStartBtn, resetBtn, buttons,
-    btn, menu, container,
-    feedIndicator, danceIndicator, sleepIndicator, powerIndicator,
-    glitchStutterOverlay, glitchStutterOverlay2, glitchDiv,
-    // winOverlay, 
-    bgMusic, spaceEngineAudio,
+    reasonElement,
+    petChat,
+    hungerTimer,
+    funTimer,
+    sleepTimer,
+    powerTimer,
+    overlay,
+    overlayStartBtn,
+    resetBtn,
+    buttons,
+    btn,
+    menu,
+    container,
+    feedIndicator,
+    danceIndicator,
+    sleepIndicator,
+    powerIndicator,
+    glitchOverlay,
+    glitchOverlay2,
+    transcendenceEffect,
+    glitchDiv,
+    // winOverlay,
+    bgMusic,
+    spaceEngineAudio,
 
     // NEW: return the individual buttons
-    feedButton, danceButton, sleepButton, trainButton,
+    feedButton,
+    danceButton,
+    sleepButton,
+    trainButton,
     // optional alias if your code references weakButton:
     weakButton: trainButton,
   };

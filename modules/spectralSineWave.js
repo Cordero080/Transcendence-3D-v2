@@ -15,7 +15,7 @@ export function drawSpectralSineWave() {
   const now = Date.now() / 1000;
   const speed1 = now * 100; // Smooth continuous movement right
   const speed2 = -now * 100; // Smooth continuous movement left
-  const speed3 = now * 100; // Third line moving right
+  const speed3 = now * -100; // Third line moving right
   ctx.clearRect(0, 0, w, h);
   ctx.save();
   ctx.globalAlpha = 0.8;
