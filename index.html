@@ -27,7 +27,7 @@
         position: fixed;
         top: 0;
         left: 0;
-        width: 100vw;
+        width: calc(100% - 14px);
         height: 100vh;
         z-index: 0;
         pointer-events: none;
@@ -165,6 +165,9 @@
       <header>
         <h1>TAMAGOTCHI</h1>
       </header>
+      
+      <span class="info-question-mark">?</span>
+      
       <!-- I gave main-wrapper an id, but it is still main, following David's example, although he didn't assign an id to it -->
       <main id="main-wrapper">
         <button class="CornerRoundButton" id="infoDropdownBtn"></button>

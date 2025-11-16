@@ -3,8 +3,8 @@ export function drawSpectralSineWave() {
   const canvas = document.getElementById("spectralSineWaveBg");
   if (!canvas) return;
   const ctx = canvas.getContext("2d");
-  // Set canvas size to fill window
-  canvas.width = window.innerWidth;
+  // Set canvas size to fill window minus scrollbar
+  canvas.width = document.documentElement.clientWidth;
   canvas.height = window.innerHeight;
   const w = canvas.width;
   const h = canvas.height;
