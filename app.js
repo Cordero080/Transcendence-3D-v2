@@ -58,6 +58,7 @@ import {
 import { setupDropdownMenu } from "./modules/ui/dropdown.js";
 import { setupNameOverlay } from "./modules/ui/nameOverlay.js";
 import { updatePetChat } from "./modules/ui/petChat.js";
+import { hideGlitchEgg } from "./modules/ui/eggAnimation.js";
 
 const {
   evolutionAudio,
@@ -866,25 +867,6 @@ class Pet {
 
 // END OF PET CLASS
 
-// ✅ Then define this after the class ends
-function hideGlitchEgg() {
-  const glitchDiv = document.getElementById("colorfulGlitchDiv");
-  if (!glitchDiv) return;
-
-  // make sure it's visible before animating
-  glitchDiv.style.display = "flex";
-
-  // RESTART the CSS animation reliably
-  glitchDiv.classList.remove("hatching");
-  void glitchDiv.offsetWidth; // force reflow
-  glitchDiv.classList.add("hatching");
-
-  // hide after hatch duration (matches @keyframes eggHatching 1.5s)
-  setTimeout(() => {
-    glitchDiv.style.display = "none";
-    glitchDiv.classList.remove("hatching");
-  }, 1500);
-}
 function startGame() {
   return new Promise((resolve) => {
     const petName = window.petName || "Coco";
