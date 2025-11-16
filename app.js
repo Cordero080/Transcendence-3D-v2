@@ -59,6 +59,7 @@ import { setupDropdownMenu } from "./modules/ui/dropdown.js";
 import { setupNameOverlay } from "./modules/ui/nameOverlay.js";
 import { updatePetChat } from "./modules/ui/petChat.js";
 import { hideGlitchEgg } from "./modules/ui/eggAnimation.js";
+import { restorePetContainer } from "./modules/ui/petContainer.js";
 
 const {
   evolutionAudio,
@@ -910,26 +911,6 @@ function startGame() {
       resolve(); // ✅ tell the overlay it’s safe to hide the egg
     });
   });
-}
-// Restores or recreates #pet-container and makes sure it's visible
-function restorePetContainer() {
-  let pc = document.getElementById("pet-container");
-  if (!pc) {
-    pc = document.createElement("div");
-    pc.id = "pet-container";
-    // ⬇️ change this mount if your HTML uses a different wrapper
-    const mount =
-      document.getElementById("game-area") ||
-      document.getElementById("stage") ||
-      document.body;
-    mount.prepend(pc);
-  }
-  pc.classList.remove("hidden", "removed", "fade-out", "invisible");
-  pc.style.display = ""; // let CSS control layout
-  pc.style.visibility = "visible";
-  pc.style.opacity = "1";
-  pc.style.pointerEvents = "auto";
-  return pc;
 }
 function resetGame() {
   console.log("resetGame() called");
