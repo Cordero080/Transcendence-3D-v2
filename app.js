@@ -50,6 +50,7 @@ import {
   hideNameOverlay,
 } from "./modules/ui/overlays.js";
 import { setupDropdownMenu } from "./modules/ui/dropdown.js";
+import { setupNameOverlay } from "./modules/ui/nameOverlay.js";
 
 const {
   evolutionAudio,
@@ -2314,59 +2315,11 @@ document.addEventListener("click", (e) => {
 
 // === Wire buttons AFTER the DOM exists ===
 window.addEventListener("DOMContentLoaded", () => {
-  const overlay = document.getElementById("pageOverlay");
-  const nameOverlay = document.getElementById("nameOverlay");
-  const overlayBtn = document.getElementById("overlayStartButton"); // START GAME
-  const confirmNameBtn = document.getElementById("confirmNameBtn"); // CONFIRM NAME
-  const petNameInput = document.getElementById("petNameInput");
+  // Setup name overlay interactions
+  setupNameOverlay();
+
   const startBtn = document.querySelector(".StartButton"); // START
   const egg = document.getElementById("colorfulGlitchDiv");
-
-  // 1) START GAME: close welcome overlay, show name input overlay
-  if (overlayBtn) {
-    overlayBtn.addEventListener("click", async () => {
-      if (overlay) overlay.style.display = "none";
-      if (nameOverlay) nameOverlay.style.display = "flex";
-      // Focus the input field
-      if (petNameInput) {
-        setTimeout(() => petNameInput.focus(), 100);
-      }
-    });
-  }
-
-  // 2) CONFIRM NAME: close name overlay, show egg, save pet name
-  if (confirmNameBtn && petNameInput) {
-    const confirmName = async () => {
-      const petName = petNameInput.value.trim() || "Coco";
-      // Store the name globally for use when creating the pet
-      window.petName = petName;
-
-      if (nameOverlay) nameOverlay.style.display = "none";
-      if (egg) {
-        egg.style.display = "flex";
-        egg.classList.remove("hatching");
-      }
-      // optional music
-      const theme = document.getElementById("bg-music");
-      if (theme) {
-        try {
-          theme.muted = false;
-          theme.currentTime = 0;
-          theme.volume = 0.8;
-          await theme.play();
-        } catch {}
-      }
-    };
-
-    confirmNameBtn.addEventListener("click", confirmName);
-
-    // Allow Enter key to confirm name
-    petNameInput.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") {
-        confirmName();
-      }
-    });
-  }
 
   // 3) START: hatch the egg, then start the game
   if (startBtn) {

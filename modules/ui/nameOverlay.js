@@ -1,0 +1,59 @@
+/**
+ * Pet Name Overlay Module
+ * Handles the pet naming screen that appears after the welcome overlay
+ */
+
+export function setupNameOverlay() {
+  const overlay = document.getElementById("pageOverlay");
+  const nameOverlay = document.getElementById("nameOverlay");
+  const overlayBtn = document.getElementById("overlayStartButton"); // START GAME
+  const confirmNameBtn = document.getElementById("confirmNameBtn"); // CONFIRM NAME
+  const petNameInput = document.getElementById("petNameInput");
+  const egg = document.getElementById("colorfulGlitchDiv");
+
+  // 1) START GAME: close welcome overlay, show name input overlay
+  if (overlayBtn) {
+    overlayBtn.addEventListener("click", async () => {
+      if (overlay) overlay.style.display = "none";
+      if (nameOverlay) nameOverlay.style.display = "flex";
+      // Focus the input field
+      if (petNameInput) {
+        setTimeout(() => petNameInput.focus(), 100);
+      }
+    });
+  }
+
+  // 2) CONFIRM NAME: close name overlay, show egg, save pet name
+  if (confirmNameBtn && petNameInput) {
+    const confirmName = async () => {
+      const petName = petNameInput.value.trim() || "Coco";
+      // Store the name globally for use when creating the pet
+      window.petName = petName;
+
+      if (nameOverlay) nameOverlay.style.display = "none";
+      if (egg) {
+        egg.style.display = "flex";
+        egg.classList.remove("hatching");
+      }
+      // optional music
+      const theme = document.getElementById("bg-music");
+      if (theme) {
+        try {
+          theme.muted = false;
+          theme.currentTime = 0;
+          theme.volume = 0.8;
+          await theme.play();
+        } catch {}
+      }
+    };
+
+    confirmNameBtn.addEventListener("click", confirmName);
+
+    // Allow Enter key to confirm name
+    petNameInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        confirmName();
+      }
+    });
+  }
+}
