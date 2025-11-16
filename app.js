@@ -49,6 +49,7 @@ import {
   showNameOverlay,
   hideNameOverlay,
 } from "./modules/ui/overlays.js";
+import { setupDropdownMenu } from "./modules/ui/dropdown.js";
 
 const {
   evolutionAudio,
@@ -1684,22 +1685,7 @@ async function playAnimationWithStutterMask(actionType, stage) {
   return result;
 }
 
-function setupDropdownMenu() {
-  if (btn && menu && container) {
-    btn.addEventListener("click", (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-
-      menu.style.display = menu.style.display === "block" ? "none" : "block";
-    });
-
-    document.addEventListener("click", (e) => {
-      if (!container.contains(e.target)) menu.style.display = "none";
-    });
-  }
-}
-
-setupDropdownMenu();
+setupDropdownMenu(btn, menu, container);
 
 // ============ 🐾 Set Model Pose event listeners=============== \ \
 async function playDanceAction(stage) {
