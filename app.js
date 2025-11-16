@@ -1,5 +1,5 @@
 // === Spectral Sine Wave Background Animation
-import { drawSpectralSineWave } from "./modules/spectralSineWave.js";
+import { drawSpectralSineWave } from "./modules/effects/spectralSineWave.js";
 window.addEventListener("DOMContentLoaded", () => {
   drawSpectralSineWave();
 });
@@ -14,8 +14,8 @@ window.addEventListener("unhandledrejection", (e) => {
 
 // --- imports and code ---
 
-import { createState } from "./modules/state.js";
-import { initUI } from "./modules/ui.js";
+import { createState } from "./modules/core/state.js";
+import { initUI } from "./modules/ui/ui.js";
 import {
   loadAndDisplayFBX,
   clearActiveModel,
