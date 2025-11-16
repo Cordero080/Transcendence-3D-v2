@@ -57,6 +57,7 @@ import {
 } from "./modules/ui/overlays.js";
 import { setupDropdownMenu } from "./modules/ui/dropdown.js";
 import { setupNameOverlay } from "./modules/ui/nameOverlay.js";
+import { updatePetChat } from "./modules/ui/petChat.js";
 
 const {
   evolutionAudio,
@@ -138,12 +139,6 @@ const actionConfigs = {
     available: () => true,
   },
 };
-
-function updatePetChat(message) {
-  if (petChat) {
-    petChat.textContent = message;
-  }
-}
 
 function handleCareAction(actionName) {
   return async function () {
@@ -803,9 +798,7 @@ class Pet {
 
       // Game over conditions
       if (this.hunger >= 10)
-        this.triggerGameOver(
-          "Starved to death! Why are you likes this?...lmao"
-        );
+        this.triggerGameOver("Starved to death! Why are you like this?...lmao");
       if (this.fun <= 0)
         this.triggerGameOver("Life was meaningless without fun :(");
       if (this.sleep >= 10) this.triggerGameOver("Burned my life-force out!");
