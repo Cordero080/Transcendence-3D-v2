@@ -41,7 +41,7 @@ export function setupNameOverlay() {
         try {
           theme.muted = false;
           theme.currentTime = 0;
-          theme.volume = 0.8;
+          theme.volume = 0.3;
           await theme.play();
         } catch {}
       }

@@ -2,6 +2,12 @@
 import { drawSpectralSineWave } from "./modules/effects/spectralSineWave.js";
 window.addEventListener("DOMContentLoaded", () => {
   drawSpectralSineWave();
+
+  // Set initial background music volume
+  const bgMusic = document.getElementById("bg-music");
+  if (bgMusic) {
+    bgMusic.volume = 0.3;
+  }
 });
 // safety so missing function won't crash white-stage evolution
 window.startWhiteEmissionTimer =
