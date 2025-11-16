@@ -16,6 +16,17 @@ export function setupNameOverlay() {
     overlayBtn.addEventListener("click", async () => {
       if (overlay) overlay.style.display = "none";
       if (nameOverlay) nameOverlay.style.display = "flex";
+
+      // Start music on first overlay click (if not already playing)
+      const theme = document.getElementById("bg-music");
+      if (theme && theme.paused) {
+        try {
+          theme.muted = false;
+          theme.volume = 0.3;
+          await theme.play();
+        } catch {}
+      }
+
       // Focus the input field
       if (petNameInput) {
         setTimeout(() => petNameInput.focus(), 100);
@@ -35,16 +46,7 @@ export function setupNameOverlay() {
         egg.style.display = "flex";
         egg.classList.remove("hatching");
       }
-      // optional music
-      const theme = document.getElementById("bg-music");
-      if (theme) {
-        try {
-          theme.muted = false;
-          theme.currentTime = 0;
-          theme.volume = 0.3;
-          await theme.play();
-        } catch {}
-      }
+      // Music already playing, no need to restart
     };
 
     confirmNameBtn.addEventListener("click", confirmName);

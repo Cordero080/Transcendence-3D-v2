@@ -2186,29 +2186,7 @@ async function playActionThenShareIdle(actionType, stage) {
 }
 
 // *================EVENT LISTENERS ===================* \\
-if (overlayStartBtn) {
-  overlayStartBtn.addEventListener("click", async () => {
-    overlay.style.display = "none"; // close intro
-
-    // show egg IDLE (no hatch here)
-    const glitchEgg = document.getElementById("colorfulGlitchDiv");
-    if (glitchEgg) {
-      glitchEgg.style.display = "flex";
-      glitchEgg.classList.remove("hatching");
-    }
-
-    // optional music
-    const theme = document.getElementById("bg-music");
-    if (theme) {
-      try {
-        theme.muted = false;
-        theme.currentTime = 0;
-        theme.volume = 0.8;
-        await theme.play();
-      } catch {}
-    }
-  });
-}
+// Note: overlayStartBtn is now handled by setupNameOverlay() module
 
 if (startBtn) {
   startBtn.addEventListener("click", async () => {
