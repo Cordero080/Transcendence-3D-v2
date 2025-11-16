@@ -24,6 +24,32 @@ import {
 import { getCatMaskData } from "./main-test.js";
 import animationConfig from "./annimationConfig.js";
 
+// Import extracted modules
+import {
+  gameSettings,
+  stageMap,
+  stageEmojis,
+  timerMap,
+  STAT_TYPES,
+  danceMap,
+  trainMap,
+  danceIndices,
+  trainIndices,
+} from "./modules/core/config.js";
+import {
+  fadeOutBgMusic,
+  playEvolutionSound,
+  playSound,
+} from "./modules/effects/audio.js";
+import {
+  showTranscendenceOverlay,
+  showGameOverOverlayLoss,
+  showGameOverOverlay,
+  hidePageOverlay,
+  showNameOverlay,
+  hideNameOverlay,
+} from "./modules/ui/overlays.js";
+
 const {
   evolutionAudio,
   evolveEffectAudio,
@@ -247,79 +273,6 @@ Object.keys(actionConfigs).forEach((action) => {
   }
 });
 
-const gameSettings = {
-  ageInterval: 20000,
-  baseDecayRate: 20000,
-  fastDecayRate: 20000,
-};
-const stageMap = {
-  0: {
-    stage: "blue",
-    message: ": I've been born into Blue Form! So, this is life!",
-  },
-  1: {
-    stage: "yellow",
-    message: "They call me MELLOW YELLOW!",
-  },
-  2: { stage: "green", message: "Green form! Growing stronger!" },
-  3: {
-    stage: "red",
-    message: " 🔥 Red form! FURY and POWER surge through me!",
-  },
-  4: {
-    stage: "white",
-    message:
-      "⚪ My internal mode is now full spectrum and my qi is at full capacity",
-  },
-};
-const stageEmojis = {
-  blue: "⚡️",
-  yellow: "🟡",
-  green: "🟢",
-  red: "🔴",
-  white: "",
-};
-const timerMap = {
-  feed: "hunger",
-  dance: "fun",
-  sleep: "sleep",
-  train: "power",
-};
-const STAT_TYPES = ["hunger", "fun", "sleep", "power"];
-
-// ===============ANIMATION MAPS ====================\\
-
-const danceMap = {
-  blue: ["dance", "dance2"],
-  yellow: ["dance", "dance2"],
-  green: ["dance", "dance2"],
-  red: ["dance", "dance2"],
-  white: ["dance", "dance2"],
-};
-const trainMap = {
-  blue: ["train", "train2"],
-  yellow: ["train", "train2"],
-  green: ["train", "train2"],
-  red: ["train", "train2"],
-  white: ["train", "train2", "train3"],
-};
-
-// ==========KEEPS TRACK OF EACH MOVE YOUR ON FOR EACH STAGE======= \\
-const danceIndices = {
-  blue: 0,
-  yellow: 0,
-  green: 0,
-  red: 0,
-  white: 0,
-};
-const trainIndices = {
-  blue: 0,
-  yellow: 0,
-  green: 0,
-  red: 0,
-  white: 0,
-};
-
 /*---------- Variables (state) ---------*/
 let currentStage; //
 // loadAndDisplayFBX(
@@ -360,38 +313,6 @@ let whiteStageTranscendenceTimeout = null;
 
 // Dance sequence tracking
 let danceSequenceIndex = 0; // 0 = dance, 1 = dance2
-
-function showGameOverOverlay(reason = "") {
-  const overlay = document.getElementById("gameOverOverlay");
-  if (!overlay) return;
-
-  overlay.style.display = "flex";
-  overlay.classList.add("show");
-  overlay.style.pointerEvents = "auto";
-  overlay.style.opacity = "1";
-  overlay.style.visibility = "visible";
-
-  const reasonEl = document.getElementById("gameOverReason");
-  if (reasonEl) reasonEl.textContent = reason;
-}
-
-// 🔊 Play Evolution Sound Effect
-function playEvolutionSound() {
-  const evolutionAudio = document.getElementById("evolution-sound");
-  if (evolutionAudio) {
-    evolutionAudio.volume = 1.0; // Set volume (0.0 = silent, 1.0 = full volume)
-    evolutionAudio.currentTime = 0; // Reset to beginning
-    evolutionAudio.play().catch((error) => {
-      console.log("🔇 Evolution sound autoplay blocked:", error);
-    });
-    console.log(
-      "🔊 Evolution sound wave playing at volume:",
-      evolutionAudio.volume
-    );
-  } else {
-    console.warn("⚠️ Evolution sound element not found");
-  }
-}
 
 function allCareActionsCompleted() {
   // White stage transcendence - evolve after 2 care animations
@@ -1265,63 +1186,6 @@ function triggerTranscendence() {
 }
 
 // Fade out background music volume smoothly
-function fadeOutBgMusic(targetVolume = 0.05, duration = 2000) {
-  const bgMusic = document.getElementById("bg-music");
-  if (!bgMusic) return;
-  const startVolume = bgMusic.volume;
-  const steps = 30;
-  const stepTime = duration / steps;
-  let currentStep = 0;
-  const volumeStep = (startVolume - targetVolume) / steps;
-  const fadeInterval = setInterval(() => {
-    currentStep++;
-    bgMusic.volume = Math.max(
-      targetVolume,
-      startVolume - volumeStep * currentStep
-    );
-    if (currentStep >= steps) {
-      bgMusic.volume = targetVolume;
-      clearInterval(fadeInterval);
-    }
-  }, stepTime);
-}
-
-function showTranscendenceOverlay() {
-  const winOverlay = document.getElementById("transcendenceOverlay");
-  if (!winOverlay) return;
-
-  winOverlay.style.display = "flex";
-  winOverlay.classList.add("show");
-  winOverlay.style.pointerEvents = "auto";
-  winOverlay.style.opacity = "1";
-  winOverlay.style.visibility = "visible";
-  // Optional: move focus to the button for keyboard users
-  const btn = document.getElementById("playAgainBtn");
-  if (btn) btn.focus();
-}
-
-function showGameOverOverlayLoss(reason) {
-  const overlay = document.getElementById("gameOverOverlay");
-  const titleEl = overlay?.querySelector("h2");
-  const reasonEl = document.getElementById("gameOverReason");
-  const btn = overlay?.querySelector(".game-over-button");
-  if (!overlay || !titleEl || !reasonEl || !btn) return;
-
-  overlay.classList.remove("win");
-
-  titleEl.textContent = "GAME OVER";
-  titleEl.classList.add("glitch-text");
-  titleEl.classList.remove("gradient-text");
-
-  reasonEl.textContent = reason || "Your pet has perished...";
-  reasonEl.classList.remove("gradient-text");
-
-  btn.textContent = "TRY AGAIN";
-  btn.classList.remove("gradient-text");
-
-  overlay.style.display = "flex";
-}
-
 // ============ ⚪ WHITE STAGE TRANSCENDENCE WITH EVOLUTION EFFECTS ============ \\
 function triggerWhiteStageTranscendence() {
   console.log(
